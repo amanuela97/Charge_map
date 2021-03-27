@@ -1,10 +1,13 @@
 //example requests for get:
 http://localhost:3000/station?start=10&limit=4
+
 http://localhost:3000/station?topRight={"lat":60.2821946,"lng":25.036108}&bottomLeft={"lat":60.1552076,"lng":24.7816538}
 
 
 //location.type is a required field for adding and updating
+
 // add station
+```json
 {
     "Station": {
         "Title": "Capgemini Oy",
@@ -26,8 +29,9 @@ http://localhost:3000/station?topRight={"lat":60.2821946,"lng":25.036108}&bottom
         }
     ]
 }
-
+```
 // modify station
+```json
 {
 "Station": {
     "_id": "5e8df9a81f87eb168e4c6757",
@@ -51,7 +55,7 @@ http://localhost:3000/station?topRight={"lat":60.2821946,"lng":25.036108}&bottom
         }
   ]
 }
-
+```
 Delete request can be made by specifing the id of the station in the body of the request 
 as urlencoded form with a key - id and value - idvalue
 
