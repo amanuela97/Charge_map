@@ -4,7 +4,8 @@
   "description": "rest api with mongodb",
   "main": "app.js",
   "scripts": {
-    "test": "node app.js"
+    "test": "node app.js",
+    "start": "node app.js"
   },
   "author": "Amanuel Ayezabu",
   "license": "ISC",
