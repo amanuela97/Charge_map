@@ -1,61 +1,161 @@
-//example requests for get:
-http://localhost:3000/station?start=10&limit=4
-
-http://localhost:3000/station?topRight={"lat":60.2821946,"lng":25.036108}&bottomLeft={"lat":60.1552076,"lng":24.7816538}
-
-
-//location.type is a required field for adding and updating
-
-// add station
-```json
+# get stations by boundaries:
 {
-    "Station": {
-        "Title": "Capgemini Oy",
-        "Town": "Espoo",
-        "AddressLine1": "Sinimäentie 8b",
-        "StateOrProvince": "Southern Finland",
-        "Postcode": "02630",
-        "Location": {
-         "type": "Point",   
-        "coordinates": [24.77772323548868, 60.203353130088146]
-        }
-    },
-    "Connections":[
-        {
-        "ConnectionTypeID": "5e39eecac5598269fdad81a0",
-        "CurrentTypeID": "5e39ef4a6921476aaf62404a",
-        "LevelID": "5e39edf7bb7ae768f05cf2bc",
-        "Quantity": 2
-        }
-    ]
+  stations(bounds: {_southWest: {lat: 60.0918986743294, lng: 24.60319519042969}, _northEast: {lat: 60.38196898834704, lng: 24.94033813476563}}) {
+    Title
+    Town
+    AddressLine1
+    Location {
+      type
+      coordinates
+    }
+    Connections {
+      Quantity
+      ConnectionTypeID {
+        Title
+      }
+      CurrentTypeID {
+        Title
+      }
+      LevelID {
+        Title
+        Comments
+        IsFastChargeCapable
+      }
+    }
+  }
 }
-```
-// modify station
-```json
-{
-"Station": {
-    "_id": "5e8df9a81f87eb168e4c6757",
-    "Title": "Testi",
-    "Town": "Espoo",
-    "AddressLine1": "Sinimäentie 8b",
-    "StateOrProvince": "Southern Finland",
-    "Postcode": "02630",
-    "Location": {
-        "type": "Point",
-        "coordinates": [24.77772323548868, 60.203353130088146]
-        }
-},
-"Connections":[
-        {
-        "_id": "5e8df9a81f87eb168e4c6756",
-        "ConnectionTypeID": "5e39eecac5598269fdad81a0",
-        "CurrentTypeID": "5e39ef4a6921476aaf62404a",
-        "LevelID": "5e39edf7bb7ae768f05cf2bc",
-        "Quantity": 7
-        }
-  ]
-}
-```
-Delete request can be made by specifing the id of the station in the body of the request 
-as urlencoded form with a key - id and value - idvalue
 
+# limit the number of stations
+{
+  stations(start: 15, limit: 3) {
+    Title
+    Town
+    AddressLine1
+    Location {
+      type
+      coordinates
+    }
+    Connections {
+      Quantity
+      ConnectionTypeID {
+        Title
+      }
+      CurrentTypeID {
+        Title
+      }
+      LevelID {
+        Title
+        Comments
+        IsFastChargeCapable
+      }
+    }
+  }
+}
+
+# station by id
+{
+  station(id: "someId") {
+    Title
+    Town
+    AddressLine1
+    Location {
+      type
+      coordinates
+    }
+    Connections {
+      Quantity
+      ConnectionTypeID {
+        Title
+      }
+      CurrentTypeID {
+        Title
+      }
+      LevelID {
+        Title
+        Comments
+        IsFastChargeCapable
+      }
+    }
+  }
+}
+
+# get connection types
+{
+  connectiontypes {
+    id
+    FormalName
+    Title
+  }
+}
+
+# get current types
+{
+  currenttypes {
+    id
+    Description
+    Title
+  }
+}
+
+# get level types
+{
+  leveltypes {
+    id
+    Comments
+    IsFastChargeCapable
+    Title
+  }
+}
+
+# add station
+
+mutation {
+  addStation(
+    Connections: [
+      {
+        ConnectionTypeID: "someConnectionTypeID",
+        CurrentTypeID: "someCurrentTypeID",
+        LevelID: "someLevelID",
+        Quantity: 2
+      }
+    ],
+    Postcode: "00000",
+    Title: "Some title",
+    AddressLine1: "Some address",
+    StateOrProvince: "Some state",
+    Town: "Some town",
+    Location: {
+      coordinates: [some_lng, some_lat]
+    }
+  )
+  {
+    AddressLine1
+    Town
+  }
+}
+
+# modify station (if you want to use separate variables)
+mutation ExampleWithVariables($id: ID!, $Connections: [ConnectionInput], $Postcode: String, $Title: String, $AddressLine1: String, $StateOrProvince: String, $Town: String) {
+ modifyStation(    
+   id: $id,
+   Connections: $Connections,
+   Postcode: $Postcode,
+   Title: $Title,
+   AddressLine1: $AddressLine1,
+   StateOrProvince: $StateOrProvince,
+   Town: $Town,
+ )
+ {
+   Title
+   AddressLine1
+   Town
+ }
+}
+
+#delete station
+mutation
+{
+ deleteStation(id: "someStationID"){
+   id
+ }
+}
