@@ -1,4 +1,5 @@
 # get stations by boundaries:
+/```
 {
   stations(bounds: {_southWest: {lat: 60.0918986743294, lng: 24.60319519042969}, _northEast: {lat: 60.38196898834704, lng: 24.94033813476563}}) {
     Title
@@ -23,9 +24,10 @@
       }
     }
   }
-}
+}```/
 
 # limit the number of stations
+/```
 {
   stations(start: 15, limit: 3) {
     Title
@@ -50,9 +52,10 @@
       }
     }
   }
-}
+}```/
 
 # station by id
+/```
 {
   station(id: "someId") {
     Title
@@ -158,4 +161,4 @@ mutation
  deleteStation(id: "someStationID"){
    id
  }
-}
+}```/
