@@ -24,10 +24,10 @@
       }
     }
   }
-}
+}```
 
 # limit the number of stations
-
+```json
 {
   stations(start: 15, limit: 3) {
     Title
@@ -53,9 +53,9 @@
     }
   }
 }
-
+```
 # station by id
-
+```json
 {
   station(id: "someId") {
     Title
@@ -81,26 +81,29 @@
     }
   }
 }
-
+```
 # get connection types
+```json
 {
   connectiontypes {
     id
     FormalName
     Title
   }
-}
+}```
 
 # get current types
+```json
 {
   currenttypes {
     id
     Description
     Title
   }
-}
+}```
 
 # get level types
+```json
 {
   leveltypes {
     id
@@ -108,10 +111,10 @@
     IsFastChargeCapable
     Title
   }
-}
+}```
 
 # add station
-
+```json
 mutation {
   addStation(
     Connections: [
@@ -135,9 +138,10 @@ mutation {
     AddressLine1
     Town
   }
-}
+}```
 
 # modify station (if you want to use separate variables)
+```json
 mutation ExampleWithVariables($id: ID!, $Connections: [ConnectionInput], $Postcode: String, $Title: String, $AddressLine1: String, $StateOrProvince: String, $Town: String) {
  modifyStation(    
    id: $id,
@@ -153,12 +157,13 @@ mutation ExampleWithVariables($id: ID!, $Connections: [ConnectionInput], $Postco
    AddressLine1
    Town
  }
-}
+}```
 
 #delete station
+```json
 mutation
 {
  deleteStation(id: "someStationID"){
    id
  }
-}```json
+}```
