@@ -1,6 +1,6 @@
 "use strict";
-const stationModel = require("../schemas/station");
-const connectionModel = require('../schemas/connection');
+const stationModel = require("../models/station");
+const connectionModel = require('../models/connections');
 const bound = require('../rectangleBounds');
 const { connections } = require("mongoose");
 
