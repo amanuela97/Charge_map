@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const Connection = require('./connection');
 
 const Schema = mongoose.Schema;
 
@@ -20,7 +19,7 @@ const stationSchema = new Schema({
         required: true,
       },
   },
-  Connections: [{type: mongoose.Types.ObjectId, ref: 'Connection'}],
+  Connections: [{type: mongoose.Types.ObjectId, ref: 'Connections'}],
 });
 
 stationSchema.indexes({Location: '2dsphere'});
