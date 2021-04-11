@@ -3,7 +3,8 @@ const connectionsModel = require('../models/connections');
 const currentTypeModel = require('../models/currentType');
 const connectionTypeModel = require('../models/connectionType');
 const levelModel = require('../models/level');
-const bound = require('../rectangleBounds');
+const bound = require('../utils/rectangleBounds');
+const {AuthenticationError} = require('apollo-server-express');
 module.exports = {
     Query: {
         stations: async (parent,args) => {
@@ -47,8 +48,11 @@ module.exports = {
     },
 
     Mutation: {
-        addStation: async (parent,args) => {
+        addStation: async (parent,args,{user}) => {
             try{
+            if (!user) {
+                return new AuthenticationError("You are not authenticated!");
+            }
             const connectionID = await Promise.all(args.Connections.map(async con => {
                 let newConnections = new connectionsModel(con);
                 const result = await newConnections.save();
@@ -65,8 +69,11 @@ module.exports = {
             }
         },
 
-        modifyStation: async (parent,args) => {
+        modifyStation: async (parent,args,{user}) => {
             try {
+                if (!user) {
+                    return new AuthenticationError("You are not authenticated!");
+                }
                 if(args.Connections){
                     const conn = await Promise.all(args.Connections.map(async con => {
                     const result = await connectionsModel.findByIdAndUpdate(con.id, con,{new: true});
@@ -89,8 +96,11 @@ module.exports = {
       
         },
 
-        deleteStation: async (parent,args) => {
+        deleteStation: async (parent,args,{user}) => {
             try {
+                if (!user) {
+                    return new AuthenticationError("You are not authenticated!");
+                }
                 const station = await stationModel.findById(args.id);
                 const deletedResult = await Promise.all(
                     station.Connections.map(async (con) => {

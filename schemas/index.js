@@ -6,6 +6,7 @@ const connectionTypeSchema = require('./connectionTypeSchema');
 const currentTypeSchema = require('./currentTypeSchema');
 const levelSchema = require('./levelSchema');
 const boundsSchema = require('./boundsSchema');
+const userSchema = require('./userSchema');
 
 
 
@@ -25,5 +26,6 @@ module.exports =  [
    connectionTypeSchema,
    currentTypeSchema,
    levelSchema,
-   boundsSchema
+   boundsSchema,
+   userSchema
 ];
