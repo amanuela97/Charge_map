@@ -34,6 +34,7 @@ module.exports = {
   Mutation: {
     registerUser: async (parent, args, { req, res }) => {
       try {
+        console.log('registerUser resolver')
         const hash = await bcrypt.hash(args.password, 12);
         const userWithHash = {
           ...args,
