@@ -40,7 +40,7 @@ const cors = require('cors');
       app.use(express.urlencoded({extended: true}));
       //app.use('/station', require('./routes'));
   
-      server.applyMiddleware({app, path: '/graphql'});
+        server.applyMiddleware({app, path: '/graphql'});
      
       db.on('connected', () => {
          process.env.NODE_ENV = process.env.NODE_ENV || "development";
